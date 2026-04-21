@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mood Energy - 能量檢測儀</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <audio id="bgm" loop>
+    <source src="bg-music.mp3" type="audio/mpeg">
+</audio>
+
+<div id="music-toggle" class="music-control">
+    <span class="icon">♪</span>
+</div>
+
+<div class="container">
+    <div id="survey-content">
+        <div class="date-row"><input type="date" id="entry-date"></div>
+        <h1>Mood Energy</h1>
+        <p class="subtitle">檢測當下能量，開啟覺察的一天</p>
+        <div id="survey-container"></div>
+        <button class="submit-btn" id="submit-btn">記錄當下能量</button>
+    </div>
+
+    <div id="eval-section" class="hidden">
+        <p class="loading-text">嘟嘟嘟... 正在載入你的能量</p>
+        <div class="result-sphere" id="eval-sphere"></div>
+        <h2 id="eval-status">評估中...</h2>
+        <p id="eval-desc"></p>
+    </div>
+</div>
+
+
+<script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,365 @@
+:root {
+    /* 顏色定義 */
+    --text-main: #1d1d1f;
+    --text-muted: #666;
+    --accent-color: #3b82f6; /* 藍色 */
+    --glass-bg: rgba(255, 255, 255, 0.75); /* 毛玻璃底色 */
+    --glass-border: rgba(255, 255, 255, 0.3);
+    
+    /* 字體 */
+    --font-family: 'Noto Sans TC', -apple-system, sans-serif;
+}
+
+
+body {
+    background-color: #0a0a0c;
+    background-image: 
+        linear-gradient(135deg, rgba(59, 130, 246, 0.05) 0%, rgba(0, 0, 0, 0) 100%);
+}
+
+body {
+    font-family: var(--font-family);
+    margin: 5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+
+/* 背景方框容器 */
+#bg-glitter-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+/* 泡泡基礎樣式 */
+.glass-bubble {
+    position: fixed;
+    border-radius: 50%;
+    /* 核心：極高透明度的背景，只保留微弱的高光 */
+    background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.1), transparent 70%);
+    /* 使用更細的內陰影，模擬光線折射而不是霧感 */
+    box-shadow: 
+        inset -5px -5px 15px rgba(255, 255, 255, 0.05),
+        inset 5px 5px 15px rgba(255, 255, 255, 0.2);
+    /* 關鍵：移除或大幅調低 blur，邊界才會清晰通透 */
+    filter: none; 
+    border: 0.5px solid rgba(255, 255, 255, 0.15); /* 加入極細邊框增加輪廓感 */
+    z-index: -1;
+    pointer-events: none;
+    animation: float-bubble 10s infinite ease-in-out;
+}
+
+/* 左下角泡泡 */
+.bubble-bottom-left {
+    width: 250px;
+    height: 250px;
+    left: -50px;
+    bottom: -50px;
+    animation-delay: 0s;
+}
+
+/* 右上角泡泡 */
+.bubble-top-right {
+    width: 150px;
+    height: 150px;
+    right: -30px;
+    top: -30px;
+    animation-delay: -4s; /* 錯開動畫時間 */
+}
+
+/* 輕微飄動動畫 */
+@keyframes float-bubble {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(15px, -20px) scale(1.05); }
+}
+.glitter-box {
+    position: absolute;
+    background-color: rgba(255, 255, 255, 0.5); /* 提高一點亮度 */
+    z-index: 1;
+    backdrop-filter: blur(1px);
+    border-radius: 4px;
+    pointer-events: none;
+    /* 直接在這裡定義動畫，移除變數傳遞 */
+    
+}
+
+/* 強制定義動畫內容 */
+/* 你提供的閃爍動畫：加入縮放與透明度變化 */
+@keyframes blink {
+    0%, 100% { 
+        opacity: 0; 
+        transform: scale(0.5); 
+    }
+    50% { 
+        opacity: 1; 
+        transform: scale(1.1); 
+    }
+}
+
+/* 2. 主內容卡片 (毛玻璃效果 Glassmorphism) */
+.container {
+    width: 90%;
+    max-width: 480px;
+    background: var(--glass-bg);
+    padding: 40px;
+    border-radius: 30px;
+    border: 1px solid var(--glass-border);
+    
+    /* 核心毛玻璃屬性 */
+    backdrop-filter: blur(15px); 
+    -webkit-backdrop-filter: blur(15px);
+    
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+h1 {
+    font-size: 32px;
+    margin-top: 10px;
+    font-weight: 700;
+}
+
+
+.subtitle {
+    color: var(--text-muted);
+    font-size: 10px;
+    margin: 5px 0 20px;
+}
+
+/* 日期選擇區樣式 */
+/* 讓容器具備定位基準 */
+.container {
+    position: relative;
+    width: 90%;
+    max-width: 400px;
+    background: var(--glass-bg);
+    backdrop-filter: blur(25px) saturate(160%);
+    -webkit-backdrop-filter: blur(25px) saturate(160%);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 32px;
+    padding: 50px 30px 40px; /* 增加上方內距給日期留位子 */
+    box-shadow: 0 20px 50px rgba(152, 152, 152, 0.06);
+}
+
+/* 將日期列定位到右上方 */
+.date-row {
+    position: absolute;
+    top: 28px;
+    right: 30px;
+    margin-bottom: 0;
+}
+
+/* 移除標籤文字，僅保留輸入框樣式 */
+.date-row label {
+    display: none; 
+}
+
+#entry-date {
+    border: none;
+    background: rgba(0, 0, 0, 0.05); /* 淡淡的底色 */
+    padding: 6px 12px;
+    border-radius: 10px;
+    font-family: 'SF Mono', monospace;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-muted);
+    outline: none;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+#entry-date:hover {
+    background: rgba(0, 0, 0, 0.1);
+}
+
+/* 3. 精修拉桿與題目樣式 */
+.slider-group {
+    margin-bottom: 28px;
+}
+
+.label-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.question {
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.percentage {
+    font-size: 14px;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums; /* 防止數字變動時抖動 */
+}
+
+/* 拉桿本體與紅藍綠漸變 */
+input[type=range] {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 12px; /* 稍微加粗，更有手感 */
+    border-radius: 6px;
+    /* 定義色譜 */
+    background: linear-gradient(90deg, #ff4d4d 0%, #3b82f6 50%, #10b981 100%) no-repeat;
+    background-color: rgba(0, 0, 0, 0.05); /* 未填充區域的顏色 */
+    outline: none;
+    cursor: pointer;
+}
+
+/* 滑塊 (Thumb) 樣式 - 質感提升 */
+input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 24px;
+    height: 24px;
+    background: #ffffff;
+    border: 1px solid rgba(0,0,0,0.1);
+    border-radius: 50%;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+    transition: transform 0.2s ease;
+}
+
+input[type=range]:active::-webkit-slider-thumb {
+    transform: scale(1.15); /* 拖曳時輕微放大 */
+}
+
+.hint-row {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 8px;
+    font-size: 12px;
+    color: var(--text-muted);
+}
+
+/* 4. 提交按鈕美化 */
+.submit-btn {
+    width: 100%;
+    padding: 18px;
+    margin-top: 20px;
+    background: #a5a5a6;
+    color: white;
+    border: solid 1px white;
+    border-radius: 20px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.submit-btn:hover {
+    background: #000;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.submit-btn:active {
+    transform: translateY(0px);
+}
+/* 隱藏區塊 */
+
+.music-control {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 44px;
+    height: 44px;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s ease;
+    color: white;
+    font-size: 20px;
+}
+
+.music-control.playing {
+    background: rgba(255, 255, 255, 0.5);
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+    animation: musicPulse 2s infinite;
+}
+
+@keyframes musicPulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+}
+
+
+.hidden { display: none !important; }
+
+#eval-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 300px; /* 保持跟問卷差不多的高度，畫面才不會跳動 */
+    animation: fadeIn 0.8s ease;
+}
+
+.loading-text {
+    font-size: 13px;
+    color: var(--text-muted);
+    letter-spacing: 2px;
+    margin-bottom: 20px;
+}
+
+.result-sphere {
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+    margin-bottom: 25px;
+    box-shadow: 
+        inset -8px -8px 25px rgba(0,0,0,0.05),
+        inset 8px 8px 25px rgba(255,255,255,0.8),
+        0 15px 35px rgba(0,0,0,0.1);
+    /* 讓它有呼吸感 */
+    animation: spherePulse 2.5s infinite ease-in-out;
+}
+
+#eval-status {
+    font-size: 18px;
+    color: var(--text-main);
+    margin: 10px 0;
+}
+
+#eval-desc {
+    font-size: 14px;
+    color: var(--text-muted);
+    text-align: center;
+    line-height: 1.6;
+    padding: 0 20px;
+}
+
+@keyframes spherePulse {
+    0%, 100% { transform: scale(1); opacity: 0.9; }
+    50% { transform: scale(1.05); opacity: 1; }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+}
