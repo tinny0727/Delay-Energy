@@ -151,26 +151,7 @@ function updateUI(id, value) {
     else text.style.color = "#10b95f"; // 綠
 }
 
-// 提交與存檔
-submitBtn.addEventListener('click', () => {
-    const finalData = {
-        date: dateInput.value,
-        scores: {}
-    };
 
-    energyQuestions.forEach(item => {
-        finalData.scores[item.id] = document.getElementById(item.id).value;
-    });
-
-    // 存入瀏覽器本地儲存
-    localStorage.setItem('lastEnergyEntry', JSON.stringify(finalData));
-
-    console.log("數據已存檔：", finalData);
-
-    // 執行跳轉（假設你的筆記頁面是 writing.html）
-    alert("能量已記錄！看看今日的能量提示吧～");
-    window.location.href = 'writing.html'; 
-});
 submitBtn.addEventListener('click', () => {
     // 1. 計算數值
     const inputs = document.querySelectorAll('input[type="range"]');
