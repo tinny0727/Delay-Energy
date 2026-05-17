@@ -12,7 +12,7 @@
 
 
 body {
-    background-color: #0a0a0c;
+    background-color: #000000; 
     background-image: 
         linear-gradient(135deg, rgba(59, 130, 246, 0.05) 0%, rgba(0, 0, 0, 0) 100%);
 }
@@ -45,14 +45,14 @@ body {
     position: fixed;
     border-radius: 50%;
     /* 核心：極高透明度的背景，只保留微弱的高光 */
-    background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.1), transparent 70%);
+    background: radial-gradient(circle at 30% 30%, rgba(232, 230, 230, 0.1), transparent 70%);
     /* 使用更細的內陰影，模擬光線折射而不是霧感 */
     box-shadow: 
         inset -5px -5px 15px rgba(255, 255, 255, 0.05),
         inset 5px 5px 15px rgba(255, 255, 255, 0.2);
     /* 關鍵：移除或大幅調低 blur，邊界才會清晰通透 */
     filter: none; 
-    border: 0.5px solid rgba(255, 255, 255, 0.15); /* 加入極細邊框增加輪廓感 */
+    border: 0.5px solid rgba(0, 0, 0, 0.15); /* 加入極細邊框增加輪廓感 */
     z-index: -1;
     pointer-events: none;
     animation: float-bubble 10s infinite ease-in-out;
@@ -69,8 +69,8 @@ body {
 
 /* 右上角泡泡 */
 .bubble-top-right {
-    width: 150px;
-    height: 150px;
+    width: 200px;
+    height: 200px;
     right: -30px;
     top: -30px;
     animation-delay: -4s; /* 錯開動畫時間 */
@@ -83,11 +83,12 @@ body {
 }
 .glitter-box {
     position: absolute;
-    background-color: rgba(255, 255, 255, 0.5); /* 提高一點亮度 */
+    background-color: var(--bg-color, rgba(255, 255, 255, 0.5));/* 提高一點亮度 */
     z-index: 1;
     backdrop-filter: blur(1px);
     border-radius: 4px;
     pointer-events: none;
+    will-change: transform, opacity;
     /* 直接在這裡定義動畫，移除變數傳遞 */
     
 }
@@ -115,7 +116,7 @@ body {
     border: 1px solid var(--glass-border);
     
     /* 核心毛玻璃屬性 */
-    backdrop-filter: blur(15px); 
+backdrop-filter: blur(30px) saturate(180%);
     -webkit-backdrop-filter: blur(15px);
     
     box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
@@ -210,8 +211,7 @@ h1 {
 }
 
 /* 拉桿本體與紅藍綠漸變 */
-input[type=range] {
-    -webkit-appearance: none;
+input[type=range] {-webkit-appearance: none;
     width: 100%;
     height: 12px; /* 稍微加粗，更有手感 */
     border-radius: 6px;
@@ -251,7 +251,7 @@ input[type=range]:active::-webkit-slider-thumb {
     width: 100%;
     padding: 18px;
     margin-top: 20px;
-    background: #a5a5a6;
+    background:#484848; 
     color: white;
     border: solid 1px white;
     border-radius: 20px;
@@ -362,4 +362,25 @@ input[type=range]:active::-webkit-slider-thumb {
 @keyframes fadeIn {
     from { opacity: 0; transform: scale(0.95); }
     to { opacity: 1; transform: scale(1); }
+}
+
+.game-back-btn {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  padding: 10px 20px;
+  background: rgba(255, 255, 255, 0.05);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 20px;
+  cursor: pointer;
+  z-index: 9999; /* 確保按鈕在遊戲畫面最上層 */
+  backdrop-filter: blur(5px);
+  transition: 0.3s;
+}
+
+.game-back-btn:hover {
+  background: rgba(76, 255, 106, 0.2);
+  border-color: #4cff6a;
+  color: #4cff6a;
 }

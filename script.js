@@ -1,5 +1,8 @@
 
-function createGlitterBoxes(count = 30) {
+function backToHome() {
+    window.location.href = "https://tinny0727.github.io/Delay-home/"; // 根據你的檔案層級決定退幾層
+}
+function createGlitterBoxes(count = 45) {
     // 移除舊的容器避免重複
     const oldContainer = document.getElementById('bg-glitter-container');
     if (oldContainer) oldContainer.remove();
@@ -9,10 +12,21 @@ function createGlitterBoxes(count = 30) {
     document.body.prepend(bgContainer);
 
     for (let i = 0; i < count; i++) {
-        const box = document.createElement('div');
-        box.className = 'glitter-box';
+       const box = document.createElement('div');
+box.classList.add('glitter-box');
 
-        const size = Math.random() * 15 + 4; // 稍微縮小方塊，質感更好
+// 隨機決定顏色
+const isWhite = Math.random() > 0.7; // 30% 的機率出現金色
+
+if (isWhite) {
+    box.style.setProperty('--bg-color', 'rgb(250, 250, 250)'); // 白色
+} else {
+    box.style.setProperty('--bg-color', 'rgba(59, 189, 45, 0.78)'); // 
+}
+
+document.body.appendChild(box);
+
+        const size = Math.random() * 20 + 4; // 稍微縮小方塊，質感更好
         const posX = Math.random() * 100;
         const posY = Math.random() * 100;
         
